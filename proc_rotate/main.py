@@ -36,10 +36,10 @@ def _rotate(source_path, destination_path, buffer_size, process=_defaultProcceso
         _rotateTempFileContent(tempfilePath, destination_path)
     return
 
-def rotate(source_path, destination_path, buffer_size=100000):
+def rotate(source_path, destination_path, buffer_size=100000, onData=None):
     "Module to process large data source and rotate result in file of max size of buffer_size"
     _validate_source(source_path)
     _valide_destination(destination_path)
     if not os.path.getsize(os.path.realpath(source_path)):
-        _rotate(source_path, destination_path, buffer_size)
+        _rotate(source_path, destination_path, buffer_size, onData)
     return 0
