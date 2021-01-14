@@ -1,4 +1,5 @@
 
 venv/
-test/__*
+tests/__pycache__
 .pytest_cache
+proc_rotate/__pycache__
