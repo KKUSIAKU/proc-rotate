@@ -2,6 +2,9 @@ import os
 import getpass
 
 def _validate_source(source):
+    if not os.path.exists(os.path.realpath(source)):
+        # FileNotFoundError or FileNotExistsError complicate testing - unable to catch the message properly
+        raise ValueError('The directory {} cannot be found'.format(source))
     if not os.path.isfile(os.path.realpath(source)):
         raise ValueError('source_path must be a valid file path')
 
@@ -27,10 +30,6 @@ def _rotateTempFileContent(tempfilePath, destination_path):
 
 def _rotate(source_path, destination_path, buffer_size, process=_defaultProccesor):
     tempfilePath = os.path.join(os.path.realpath(destination_path), 'temp.txt')
-    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-    print(process)
-    print(getpass.getuser())
-    print(tempfilePath)
     os.makedirs(tempfilePath).close()
     with open(source_path) as source, \
             open(tempfilePath, 'a') as destination:
